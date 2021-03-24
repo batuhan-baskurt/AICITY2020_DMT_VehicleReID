@@ -117,6 +117,8 @@ class Backbone(nn.Module):
     def load_param_finetune(self, model_path):
         param_dict = torch.load(model_path)
         for i in param_dict:
+            if 'classifier' in i:
+                continue
             self.state_dict()[i].copy_(param_dict[i])
         print('Loading pretrained model for finetuning from {}'.format(model_path))
 

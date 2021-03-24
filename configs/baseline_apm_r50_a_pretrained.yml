@@ -1,10 +1,11 @@
 MODEL:
-  PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: 'resnet50-19c8e357.pth'
+  PRETRAIN_CHOICE: 'finetune'
+  PRETRAIN_PATH: 'logs/veri/resnet50_ibn_a_scratch/resnet50_ibn_a_50.pth'
   METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'no'
-  NAME: 'resnet50'
+  NAME: 'resnet50_ibn_a'
+  FROZEN: 2
   NO_MARGIN: True
   DEVICE_ID: ('0')
 
@@ -16,7 +17,7 @@ INPUT:
   PADDING: 10
 
 DATASETS:
-  NAMES: ('veri')
+  NAMES: ('apm')
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -25,10 +26,10 @@ DATALOADER:
 
 SOLVER:
   OPTIMIZER_NAME: 'SGD'
-  MAX_EPOCHS: 80
-  BASE_LR: 0.01
+  MAX_EPOCHS: 120
+  BASE_LR: 0.001
   IMS_PER_BATCH: 48
-  STEPS: [40, 70]
+  STEPS: [40, 70, 90]
   GAMMA: 0.1
   WARMUP_FACTOR: 0.01
   WARMUP_EPOCHS: 10
@@ -40,13 +41,13 @@ SOLVER:
 
 TEST:
   EVAL: True
-  IMS_PER_BATCH: 64
+  IMS_PER_BATCH: 32
   RE_RANKING: False
   RE_RANKING_TRACK: False
-  WEIGHT: ''
+  WEIGHT: './logs/apm/resnet50_ibn_a_pretrained.pth'
   NECK_FEAT: 'after'
   FEAT_NORM: 'yes'
 
-OUTPUT_DIR: '/output_data/veri/scratch/'
+OUTPUT_DIR: './output_data/apm/resnet50_ibn_a_pretrained'
 
 

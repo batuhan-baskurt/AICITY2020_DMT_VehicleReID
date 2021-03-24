@@ -6,6 +6,7 @@ from .aic_aicsim import AIC_AICSIM
 from .aic_querymining import AIC_Q
 from .aic_crop import AIC_CROP
 from .veri import VeRi
+from .apm import APM
 from .bases import ImageDataset
 from .preprocessing import RandomErasing
 from .sampler import RandomIdentitySampler
@@ -16,7 +17,7 @@ __factory = {
     'aic_aicsim':AIC_AICSIM,
     'aic_query':AIC_Q,
     'aic_crop':AIC_CROP,
-
+    'apm':APM,
 }
 
 def train_collate_fn(batch):

@@ -64,6 +64,8 @@ def do_train(cfg,
                     param.grad.data *= (1. / cfg.SOLVER.CENTER_LOSS_WEIGHT)
                 optimizer_center.step()
 
+            # temp change
+            #cheduler.step()
             acc = (score.max(1)[1] == target).float().mean()
             loss_meter.update(loss.item(), img.shape[0])
             acc_meter.update(acc, 1)

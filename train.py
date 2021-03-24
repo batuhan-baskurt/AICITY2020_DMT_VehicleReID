@@ -54,7 +54,7 @@ if __name__ == '__main__':
     train_loader, val_loader, num_query, num_classes = make_dataloader(cfg)
 
     if cfg.MODEL.PRETRAIN_CHOICE == 'finetune':
-        model = make_model(cfg, num_class=433)
+        model = make_model(cfg, num_class=num_classes)
         model.load_param_finetune(cfg.MODEL.PRETRAIN_PATH)
         print('Loading pretrained model for finetuning......')
     else:

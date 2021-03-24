@@ -5,28 +5,23 @@ import os.path as osp
 from .bases import BaseImageDataset
 
 
-class VeRi(BaseImageDataset):
+class APM(BaseImageDataset):
     """
-       VeRi-776
-       Reference:
-       Liu, Xinchen, et al. "Large-scale vehicle re-identification in urban surveillance videos." ICME 2016.
-
-       URL:https://vehiclereid.github.io/VeRi/
-
+       APM
        Dataset statistics:
        # identities: 776
        # images: 37778 (train) + 1678 (query) + 11579 (gallery)
-       # cameras: 20
+       # cameras: 6
        """
 
-    dataset_dir = 'VeRi'
+    dataset_dir = 'APM'
 
     def __init__(self, root='data', verbose=True, **kwargs):
-        super(VeRi, self).__init__()
+        super(APM, self).__init__()
         self.dataset_dir = osp.join(root, self.dataset_dir)
-        self.train_dir = osp.join(self.dataset_dir, 'image_train')
-        self.query_dir = osp.join(self.dataset_dir, 'image_query')
-        self.gallery_dir = osp.join(self.dataset_dir, 'image_test')
+        self.train_dir = osp.join(self.dataset_dir, 'bbox_train')
+        self.query_dir = osp.join(self.dataset_dir, 'bbox_query')
+        self.gallery_dir = osp.join(self.dataset_dir, 'bbox_test')
 
         self._check_before_run()
 
@@ -35,7 +30,7 @@ class VeRi(BaseImageDataset):
         gallery = self._process_dir(self.gallery_dir, relabel=False)
 
         if verbose:
-            print("=> VeRi-776 loaded")
+            print("=> APM loaded")
             self.print_dataset_statistics(train, query, gallery)
 
         self.train = train
@@ -72,7 +67,7 @@ class VeRi(BaseImageDataset):
         for img_path in img_paths:
             pid, camid = map(int, pattern.search(img_path).groups())
             if pid == -1: continue  # junk images are just ignored
-            assert 0 <= pid <= 776  # pid == 0 means background
+            #assert 0 <= pid <= 776  # pid == 0 means background
             assert 1 <= camid <= 20
             camid -= 1  # index starts from 0
             if relabel: pid = pid2label[pid]

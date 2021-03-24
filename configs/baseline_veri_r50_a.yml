@@ -1,6 +1,6 @@
 MODEL:
-  PRETRAIN_CHOICE: 'imagenet'
-  PRETRAIN_PATH: '/home/hoo/.cache/torch/checkpoints/r50_ibn_a.pth'
+  PRETRAIN_CHOICE: 'finetune'
+  PRETRAIN_PATH: 'resnet50_ibn_a_80.pth'
   METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'off'
   IF_WITH_CENTER: 'no'
@@ -9,8 +9,8 @@ MODEL:
   DEVICE_ID: ('0')
 
 INPUT:
-  SIZE_TRAIN: [320, 320]
-  SIZE_TEST: [320, 320]
+  SIZE_TRAIN: [280, 280]
+  SIZE_TEST: [280, 280]
   PROB: 0.5 # random horizontal flip
   RE_PROB: 0.5 # random erasing
   PADDING: 10
@@ -40,13 +40,13 @@ SOLVER:
 
 TEST:
   EVAL: True
-  IMS_PER_BATCH: 1000
-  RE_RANKING: False
-  RE_RANKING_TRACK: False
-  WEIGHT: ''
+  IMS_PER_BATCH: 32
+  RE_RANKING: True
+  RE_RANKING_TRACK: True
+  WEIGHT: './logs/veri/resnet50_ibn_a_80.pth'
   NECK_FEAT: 'after'
   FEAT_NORM: 'yes'
 
-OUTPUT_DIR: '/data/model/0420_7/'
+OUTPUT_DIR: './output_data/veri'
 
 
